@@ -14,33 +14,26 @@ bytecode = complied.contracts[':greeter'].bytecode;
 gasEstimate = web3.eth.estimateGas({data: bytecode})
 
 
-var greeterContract = new web3.eth.Contract(abi)
-var _greeting = "Hello World!"
+greeterContract = new web3.eth.Contract(abi)
+_greeting = "Hello World!"
 cdeploy = greeterContract.deploy({data:bytecode, arguments:[_greeting]})
 
 
 web3.eth.getAccounts().then(function (rs){
 	accs = rs
 
-	greeter = cdeploy.send(_greeting,{from:accs[0], gas: 1000000}, function(e, contract){
-				console.log(contract);
-				console.log(e);
-		if(!e) {
-			cnt = contract
-			if(!contract.address) {
-				console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
+	cdeploy.send({from:accs[0], gas: 1000000}).then(function(contract){
+		gt = contract // gt can be used in cmd of node
 
-			} else {
-				console.log("Contract mined! Address: " + contract.address);
-				console.log(contract);
-			}
-		}else{
-				console.log(contract);
-				console.log(e);
-
-		}
+		console.log("Contract mined! Address: " + contract._address);
+		console.log(" =========== ");
+		gt.methods.greet().call().then(console.log)
 	})
 
 
 })
-// require('./greeting.js')
+// run in side node cmd line like this:
+
+// node 
+// > require('./greeting.js')
+// > gt
