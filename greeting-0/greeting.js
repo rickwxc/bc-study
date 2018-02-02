@@ -25,7 +25,7 @@ web3.eth.getAccounts().then(function (rs){
 	cdeploy.send({from:accs[0], gas: 1000000}).then(function(contract){
 		gt = contract // gt can be used in cmd of node
 
-		console.log("Contract mined! Address: " + contract._address);
+		console.log("Contract Address: " + contract.option.address);
 		console.log(" =========== ");
 		gt.methods.greet().call().then(console.log)
 	})

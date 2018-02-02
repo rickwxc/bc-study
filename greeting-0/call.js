@@ -9,6 +9,6 @@ input = fs.readFileSync('greeting.sol', 'utf8')
 complied = solc.compile(input);
 abi = JSON.parse(complied.contracts[':greeter'].interface)
 
-another_contract = new web3.eth.Contract(abi, '0x4b4EAd58e4574192870f5Dc1CAB39b4373722bE4')// copy and past deployed contract address
+contact_instance = new web3.eth.Contract(abi, '0xC4320fdF9a8707dC036289CaF48ecbc8BEd984fF')// copy and past deployed contract address
 
-another_contract.methods.greet().call().then(console.log)
+contact_instance.methods.greet().call().then(console.log)
